@@ -17,6 +17,26 @@ const getVertex = (row, idx) => {
 
     return edges;
 }
+
+var findCircleNum = function(isConnected) {
+    const adjList = buildGraph(isConnected);
+    const count = 0, vis = {};
+    for(let i = 0; i < adjList.length; i++) {
+        if(!vis[i]) {
+            dfs(i, vis, adjList);
+            count++;
+        }
+    }
+    return count;
+};
+
+var dfs = (idx, vis, adjList) => {
+    vis[idx] = true;
+    for(let ele of adjList[idx]) {
+        if(!vis[ele]) dfs(ele, vis, adjList);
+    }
+}
+
 const matrix = [[1,1,0],[1,1,0],[0,0,1]];
 const adjList = buildGraph(matrix);
 console.log(adjList)
